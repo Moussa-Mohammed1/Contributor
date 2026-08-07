@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contributor"
+version = "1.0.0"
+description = "AI-powered automation system that continuously improves existing Git repositories with small, meaningful, fully-automated commits."
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [{ name = "contributor team" }]
+keywords = ["git", "automation", "ai", "scheduler", "clean-architecture"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: X11 Applications",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+
+dependencies = [
+    "GitPython>=3.1.44",
+    "APScheduler>=3.10,<4",
+    "SQLAlchemy>=2.0.40",
+    "typer>=0.15",
+    "rich>=13.9",
+    "textual>=2.1",
+    "pydantic>=2.10",
+    "PyYAML>=6.0.2",
+    "watchdog>=6.0",
+    "aiofiles>=24.1",
+    "httpx>=0.28",
+    "tzdata>=2025.1; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.25",
+    "pyinstaller>=6.11",
+]
+gui = ["textual>=2.1"]
+notify = ["winotify>=1.1; sys_platform == 'win32'", "plyer>=2.1"]
+
+[project.scripts]
+keeper = "keeper.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["keeper*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
